@@ -1,3 +1,5 @@
+#!/usr/bin/emacs --script
+
 ;;; tconv.el --- Converter temperature values
 
 ;; Copyright (C) 2014 Artem Petrov <pa2311@gmail.com>
@@ -5,7 +7,7 @@
 ;; Author: Artem Petrov <pa2311@gmail.com>
 ;; Created: 04 May 2014
 ;; Keywords: calculation convertion temperature dimension
-;; Version: 0.1.0
+;; Version: 0.2.0
 
 ;; This file is not part of GNU Emacs.
 
@@ -22,14 +24,18 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+(message (concat "\n\tEmacs v" emacs-version " on "
+                 (prin1-to-string system-type) " " system-name))
+(message "\ttconv v0.2.0\n")
+
 (defun temperature-converter (value dimension)
-  "Convert temperature value from C to F and vice versa"
+  "Convert temperature value from C to F and vice versa."
   (cond ((equal dimension "C")
          (setq result (+ (* value (/ 9.0 5.0)) 32.0))
-         (message "%f %s = %f %s" value dimension result "F"))
+         (message "%f %s = %f %s" value dimension result "F\n"))
         ((equal dimension "F")
          (setq result (* (- value 32.0) (/ 5.0 9.0)))
-         (message "%f %s = %f %s" value dimension result "C"))
+         (message "%f %s = %f %s" value dimension result "C\n"))
         (t (message "Wrong dimension!")))
   )
 
