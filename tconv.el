@@ -24,7 +24,6 @@
 
 (defun temperature-converter (value dimension)
   "Convert temperature value from C to F and vice versa"
-  (interactive "nEnter temperature value: \nsEnter temperature dimension (C or F): ")
   (cond ((equal dimension "C")
          (setq result (+ (* value (/ 9.0 5.0)) 32.0))
          (message "%f %s = %f %s" value dimension result "F"))
@@ -33,3 +32,6 @@
          (message "%f %s = %f %s" value dimension result "C"))
         (t (message "Wrong dimension!")))
   )
+
+(temperature-converter (string-to-number (elt argv 0))
+                       (elt argv 1))
