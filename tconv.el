@@ -7,7 +7,7 @@
 ;; Author: Artem Petrov <pa2311@gmail.com>
 ;; Created: 04 May 2014
 ;; Keywords: calculation convertion temperature dimension
-;; Version: 0.2.0
+;; Version: 0.3.0
 
 ;; This file is not part of GNU Emacs.
 
@@ -24,11 +24,15 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;;;; caption
+
 (message (concat "\n\tEmacs v" emacs-version " on "
                  (prin1-to-string system-type) " " system-name))
-(message "\ttconv v0.2.0\n")
+(message "\ttconv v0.3.0\n")
 
-(defun temperature-converter (value dimension)
+;;;; function definitions
+
+(defun pa23-tconv (value dimension)
   "Convert temperature value from C to F and vice versa."
   (cond ((equal dimension "C")
          (setq result (+ (* value (/ 9.0 5.0)) 32.0))
@@ -36,8 +40,24 @@
         ((equal dimension "F")
          (setq result (* (- value 32.0) (/ 5.0 9.0)))
          (message "%f %s = %f %s" value dimension result "C\n"))
-        (t (message "Wrong dimension!")))
+        (t (message "Wrong dimension!"))
+        )
   )
 
-(temperature-converter (string-to-number (elt argv 0))
-                       (elt argv 1))
+;;;; main
+
+(let (arg0 arg1)
+  (if (< (length argv) 2)
+      (progn
+        (message "Enter temperature value.")
+        (setq arg0 (read t))
+        (message "Enter temperature dimension (\"C\" or \"F\").")
+        (setq arg1 (read t))
+        )
+    (progn
+      (setq arg0 (string-to-number (elt argv 0)))
+      (setq arg1 (elt argv 1))
+      )
+    )
+  (pa23-tconv arg0 arg1)
+  )
